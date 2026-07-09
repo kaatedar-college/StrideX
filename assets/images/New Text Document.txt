@@ -1,0 +1,193 @@
+Tumhara stack:
+
+HTML
+CSS
+JavaScript
+PHP
+MySQL
+XAMPP
+
+To hum proper roadmap follow karenge.
+
+STRIDEX — Full E-commerce Project Plan
+Phase 1 — Setup (DONE / in progress)
+
+✅ Folder structure
+✅ Login page
+✅ Register page
+✅ Responsive design
+✅ Password show/hide
+
+Phase 2 — Authentication System
+1. Register
+
+Features:
+
+Name
+Email
+Password
+Confirm Password
+Validation
+Save into DB
+
+Files:
+
+register.php
+register_process.php
+db.php
+2. Login
+
+Features:
+
+Email + Password
+Session
+Remember login
+Redirect
+
+Files:
+
+login.php
+login_process.php
+logout.php
+3. Forgot Password
+
+Features:
+
+Email check
+Reset password
+Update DB
+
+Files:
+
+forgot_password.php
+reset_password.php
+update_password.php
+Phase 3 — Main Website
+Home Page
+
+Features:
+
+Hero
+Animation
+Featured Shoes
+New Arrival
+Brands
+Offers
+Footer
+
+Files:
+
+index.php
+home.css
+home.js
+Phase 4 — Product System
+Products Page
+
+Features:
+
+Filter
+Search
+Sort
+Categories
+Price
+Pagination
+
+DB:
+
+products
+
+Files:
+
+products.php
+product_detail.php
+Phase 5 — Cart System
+
+Features:
+
+Add to cart
+Remove
+Quantity
+Total
+Session
+
+Files:
+
+cart.php
+add_to_cart.php
+remove_cart.php
+Phase 6 — Checkout
+
+Features:
+
+Address
+Order Summary
+Payment UI
+Place Order
+
+Files:
+
+checkout.php
+order.php
+Phase 7 — User Dashboard
+
+Features:
+
+Profile
+Orders
+Wishlist
+Settings
+Logout
+
+Files:
+
+profile.php
+orders.php
+wishlist.php
+Phase 8 — Admin Panel
+
+Features:
+
+Dashboard
+Add Product
+Edit Product
+Delete Product
+Manage Orders
+Manage Users
+Analytics
+
+Files:
+
+admin/
+Final Folder Structure
+STRIDEX
+│
+├── assets
+│   ├── css
+│   ├── js
+│   └── images
+│
+├── pages
+│   ├── login.php
+│   ├── register.php
+│   ├── home.php
+│   ├── products.php
+│   ├── cart.php
+│   ├── profile.php
+│   └── checkout.php
+│
+├── php
+│   ├── db.php
+│   ├── login_process.php
+│   ├── register_process.php
+│   └── logout.php
+│
+├── admin
+│
+└── database
+    └── stridex.sql
+
+Hum tutorial style me karenge:
+UI → Database → Backend → Connect → Test
+
+Ab next step:
+MySQL database banana aur Register page ko working banana (user DB me save ho).
