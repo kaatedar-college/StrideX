@@ -184,6 +184,4 @@ Login
 
 </body>
 
-</body>
-
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2026 at 07:52 PM
+-- Generation Time: Jul 11, 2026 at 10:24 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,15 +29,26 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `full_name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `phone` varchar(15) NOT NULL,
   `password` varchar(255) NOT NULL,
   `otp` varchar(6) DEFAULT NULL,
   `is_verified` tinyint(1) NOT NULL DEFAULT 0,
   `profile_image` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `first_name` varchar(100) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `country_code` varchar(10) NOT NULL,
+  `country_short` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `phone`, `password`, `otp`, `is_verified`, `profile_image`, `created_at`, `first_name`, `last_name`, `country_code`, `country_short`) VALUES
+(1, 'test@gmail.com', '9876543210', '$2y$10$GxPphLwaAKswDQcMD6a3r.bBq1RWiRHUoFb6WLco3zj0zdtq5ALy2', NULL, 0, NULL, '2026-07-11 19:48:51', 'Pankaj', 'Patil', '+91', 'IN'),
+(2, 'tst@gmail.com', '9876543210', '$2y$10$7zhJjJuijDqaA9pLSFaoeervkNsq6hCLem3gAK/aLpqjF4LR4pFe2', NULL, 0, NULL, '2026-07-11 19:53:19', 'Pankaj', 'Patil', '+91', 'IN');
 
 --
 -- Indexes for dumped tables
@@ -58,7 +69,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
