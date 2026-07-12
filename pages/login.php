@@ -23,13 +23,14 @@
 
 <div class="right">
 
-<form>
+<form action="../php/login_process.php" method="POST">
 
 <h2>Login</h2>
 
 <input
 type="email"
 placeholder="Email"
+name="email"
 required
 >
 
@@ -38,6 +39,7 @@ required
 <input
 type="password"
 id="password"
+name="password"
 placeholder="Password"
 required>
 
@@ -65,7 +67,7 @@ Remember me
 
 </div>
 
-<button class="login">
+<button type="submit" class="login">
 LOGIN
 </button>
 

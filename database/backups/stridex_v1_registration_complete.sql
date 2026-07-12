@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2026 at 10:24 PM
+-- Generation Time: Jul 12, 2026 at 02:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,6 +33,7 @@ CREATE TABLE `users` (
   `phone` varchar(15) NOT NULL,
   `password` varchar(255) NOT NULL,
   `otp` varchar(6) DEFAULT NULL,
+  `otp_expire` datetime DEFAULT NULL,
   `is_verified` tinyint(1) NOT NULL DEFAULT 0,
   `profile_image` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -46,9 +47,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `phone`, `password`, `otp`, `is_verified`, `profile_image`, `created_at`, `first_name`, `last_name`, `country_code`, `country_short`) VALUES
-(1, 'test@gmail.com', '9876543210', '$2y$10$GxPphLwaAKswDQcMD6a3r.bBq1RWiRHUoFb6WLco3zj0zdtq5ALy2', NULL, 0, NULL, '2026-07-11 19:48:51', 'Pankaj', 'Patil', '+91', 'IN'),
-(2, 'tst@gmail.com', '9876543210', '$2y$10$7zhJjJuijDqaA9pLSFaoeervkNsq6hCLem3gAK/aLpqjF4LR4pFe2', NULL, 0, NULL, '2026-07-11 19:53:19', 'Pankaj', 'Patil', '+91', 'IN');
+INSERT INTO `users` (`id`, `email`, `phone`, `password`, `otp`, `otp_expire`, `is_verified`, `profile_image`, `created_at`, `first_name`, `last_name`, `country_code`, `country_short`) VALUES
+(1, 'test@gmail.com', '9876543210', '$2y$10$GxPphLwaAKswDQcMD6a3r.bBq1RWiRHUoFb6WLco3zj0zdtq5ALy2', NULL, NULL, 0, NULL, '2026-07-11 19:48:51', 'Pankaj', 'Patil', '+91', 'IN'),
+(2, 'tst@gmail.com', '9876543210', '$2y$10$7zhJjJuijDqaA9pLSFaoeervkNsq6hCLem3gAK/aLpqjF4LR4pFe2', NULL, NULL, 0, NULL, '2026-07-11 19:53:19', 'Pankaj', 'Patil', '+91', 'IN');
 
 --
 -- Indexes for dumped tables
