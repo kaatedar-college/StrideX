@@ -97,6 +97,15 @@ if ($password !== $confirm_password) {
 
 }
 
+// Generate OTP
+$otp = random_int(100000, 999999);
+
+// OTP Expiry (5 minutes)
+$otp_expire = date("Y-m-d H:i:s", strtotime("+5 minutes"));
+
+// User not verified yet
+$is_verified = 0;
+
 // ===============================
 // Check Duplicate Email
 // ===============================
@@ -130,14 +139,14 @@ $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 // ===============================
 
 $sql = "INSERT INTO users
-(first_name, last_name, email, country_code, country_short, phone, password)
-VALUES (?, ?, ?, ?, ?, ?, ?)";
+(first_name, last_name, email, country_code, country_short, phone, password, otp, otp_expire, is_verified)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = mysqli_prepare($conn, $sql);
 
 mysqli_stmt_bind_param(
     $stmt,
-    "sssssss",
+    "sssssssssi",
     $first_name,
     $last_name,
     $email,
@@ -145,6 +154,9 @@ mysqli_stmt_bind_param(
     $country_short,
     $phone,
     $hashed_password
+    $otp,
+    $otp_expire,
+    $is_verified
 );
 
 if (mysqli_stmt_execute($stmt)) {
