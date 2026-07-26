@@ -2,8 +2,11 @@
 
 // Database Connection
 
-require_once "db.php";
+session_start();
 
+require_once "db.php";
+require_once "cleanup_unverified.php";
+require 'send_otp_mail.php';
 
 // Check Form Submit
 
@@ -126,6 +129,7 @@ if (mysqli_num_rows($result) > 0) {
 
 }
 
+mysqli_stmt_close($stmt);
 
 // ===============================
 // Password Hash
@@ -153,7 +157,7 @@ mysqli_stmt_bind_param(
     $country_code,
     $country_short,
     $phone,
-    $hashed_password
+    $hashed_password,
     $otp,
     $otp_expire,
     $is_verified
@@ -161,7 +165,19 @@ mysqli_stmt_bind_param(
 
 if (mysqli_stmt_execute($stmt)) {
 
-    echo "Registration Successful.";
+    if (sendOTP($email, $first_name, $otp)) {
+
+        $_SESSION['verify_email'] = $email;
+
+        header("Location: ../pages/verify_otp.php");
+
+        exit();
+
+    } else {
+
+        die("OTP Email Failed.");
+
+    }
 
 } else {
 
