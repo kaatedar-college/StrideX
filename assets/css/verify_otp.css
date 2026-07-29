@@ -50,7 +50,21 @@ body{
     box-shadow:
     0 20px 50px rgba(0,0,0,.35);
 
-    animation:fadeUp .7s ease;
+        opacity:0;
+
+    transform:translateY(30px);
+
+    animation:fadeUp .7s ease forwards;
+
+}
+
+.no-animation .verify-card{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+    animation:none;
 
 }
 
@@ -344,6 +358,7 @@ body{
 
 }
 
+
 /* ===============================
    OTP Error Box
 =============================== */
@@ -352,21 +367,47 @@ body{
 
     width:100%;
 
+    height:52px;
+
     display:flex;
 
     align-items:center;
 
     gap:12px;
 
+    padding:0 18px;
+
     margin:18px 0 28px;
 
-    padding:14px 18px;
+    border:1px solid rgba(255,255,255,.28);
 
-    border:1px solid rgba(255,255,255,.25);
+    border-radius:15px;
 
-    border-radius:14px;
+    background:rgba(255,255,255,.03);
 
-    background:rgba(255,255,255,.04);
+    backdrop-filter:blur(10px);
+
+    animation:fadeDown .35s ease;
+
+    box-sizing:border-box;
+
+}
+
+.otp-error-icon{
+
+    color:#ff8a65;
+
+    font-size:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.otp-error-text{
 
     color:#ffffff;
 
@@ -374,23 +415,10 @@ body{
 
     font-weight:500;
 
-    animation:fadeDown .35s ease;
+    letter-spacing:.2px;
 
 }
 
-.otp-error i{
-
-    color:#ff4d4d;
-
-    font-size:18px;
-
-}
-
-.otp-error span{
-
-    color:#ffffff;
-
-}
 
 /* Animation for OTP Error Box */
  @keyframes fadeDown{
@@ -412,3 +440,64 @@ body{
     }
 
 }
+
+/* ===============================
+   Invalid OTP Shake Animation
+=============================== */
+
+
+.otp-boxes.otp-invalid{
+
+    animation:shake .45s ease-in-out;
+
+}
+
+.otp-boxes.otp-invalid .otp-input{
+
+    border:2px solid #ff4d4d;
+
+    box-shadow:0 0 12px rgba(255,77,77,.35);
+
+}
+
+@keyframes shake{
+
+0%{
+
+transform:translateX(0);
+
+}
+
+20%{
+
+transform:translateX(-8px);
+
+}
+
+40%{
+
+transform:translateX(8px);
+
+}
+
+60%{
+
+transform:translateX(-6px);
+
+}
+
+80%{
+
+transform:translateX(6px);
+
+}
+
+100%{
+
+transform:translateX(0);
+
+}
+
+}
+
+            

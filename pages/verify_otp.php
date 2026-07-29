@@ -3,6 +3,8 @@ session_start();
 
 $email = "";
 
+$hasError = isset($_SESSION['otp_error']);
+
 if (isset($_SESSION['verify_email'])) {
 
     $email = $_SESSION['verify_email'];
@@ -29,7 +31,7 @@ if (isset($_SESSION['verify_email'])) {
 
 </head>
 
-<body>
+<body class="<?php echo isset($_SESSION['otp_error']) ? 'no-animation' : ''; ?>">
 
     <div class="verify-container">
 
@@ -55,7 +57,7 @@ if (isset($_SESSION['verify_email'])) {
 
             <!-- Email -->
 
-          <p class="email">
+         <p class="email">
 
 <?php
 
@@ -71,21 +73,25 @@ if (!empty($email)) {
 
 ?>
 
-<!-- OTP Error -->
+</p>
 
 <?php if(isset($_SESSION['otp_error'])) { ?>
 
-<div class="otp-error">
+<div class="otp-error" id="otpError">
 
-    <i class="fa-solid fa-circle-exclamation"></i>
+    <div class="otp-error-icon">
 
-    <span>
+        <i class="fa-solid fa-circle-exclamation"></i>
+
+    </div>
+
+    <span class="otp-error-text">
 
         <?php
 
-        echo $_SESSION['otp_error'];
+            echo $_SESSION['otp_error'];
 
-        unset($_SESSION['otp_error']);
+            unset($_SESSION['otp_error']);
 
         ?>
 
@@ -103,7 +109,7 @@ if (!empty($email)) {
                   method="POST"
                   id="otpForm">
 
-                <div class="otp-boxes">
+                <div class="otp-boxes <?php echo $hasError ? 'otp-invalid' : ''; ?>">
 
                     <input type="text" maxlength="1" class="otp-input">
                         <input type="text" maxlength="1" class="otp-input">

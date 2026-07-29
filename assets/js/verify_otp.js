@@ -60,7 +60,7 @@ function updateOTP() {
 }
 
 /////////////////////////
-////otp coutdown timer///
+//// OTP Countdown Timer
 /////////////////////////
 
 let timeLeft = 60;
@@ -113,6 +113,89 @@ inputs.forEach((input) => {
             inputs[inputs.length - 1].focus();
 
         }
+
+    });
+
+});
+
+// ===============================
+// Invalid OTP Animation
+// ===============================
+
+const errorBox = document.getElementById("otpError");
+
+// if (errorBox) {
+
+//     const otpBoxes = document.querySelector(".otp-boxes");
+
+//     otpBoxes.classList.add("otp-invalid");
+
+// }
+
+//////////////////////////////////
+// Resend OTP Click
+//////////////////////////////////
+
+resendLink.addEventListener("click", function (e) {
+
+    e.preventDefault();
+
+    resendLink.style.display = "none";
+    resendText.style.display = "block";
+
+    fetch("../php/resend_otp.php")
+
+    .then(response => response.text())
+
+    .then(data => {
+
+        data = data.trim();
+
+        if (data === "success") {
+
+            timeLeft = 60;
+
+            countdown.textContent = timeLeft;
+
+            const timer = setInterval(function () {
+
+                timeLeft--;
+
+                countdown.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+
+                    clearInterval(timer);
+
+                    resendText.style.display = "none";
+
+                    resendLink.style.display = "block";
+
+                }
+
+            }, 1000);
+
+        } else {
+
+            alert(data);
+
+            resendText.style.display = "none";
+
+            resendLink.style.display = "block";
+
+        }
+
+    })
+
+    .catch(error => {
+
+        console.error(error);
+
+        alert("Something went wrong.");
+
+        resendText.style.display = "none";
+
+        resendLink.style.display = "block";
 
     });
 
