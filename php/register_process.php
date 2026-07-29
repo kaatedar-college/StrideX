@@ -113,7 +113,7 @@ $is_verified = 0;
 // Check Duplicate Email
 // ===============================
 
-$sql = "SELECT id FROM users WHERE email = ?";
+$sql = "SELECT * FROM users WHERE email = ?";
 
 $stmt = mysqli_prepare($conn, $sql);
 
@@ -125,7 +125,49 @@ $result = mysqli_stmt_get_result($stmt);
 
 if (mysqli_num_rows($result) > 0) {
 
-    die("Email already registered.");
+    $existingUser = mysqli_fetch_assoc($result);
+
+    // Already Verified
+    if ($existingUser['is_verified'] == 1) {
+
+        die("Email already registered.");
+
+    }
+
+    // Not Verified → Generate New OTP
+    $otp = random_int(100000, 999999);
+
+    $otp_expire = date("Y-m-d H:i:s", strtotime("+5 minutes"));
+
+    $update = "UPDATE users
+               SET otp = ?, otp_expire = ?
+               WHERE email = ?";
+
+    $updateStmt = mysqli_prepare($conn, $update);
+
+    mysqli_stmt_bind_param(
+        $updateStmt,
+        "sss",
+        $otp,
+        $otp_expire,
+        $email
+    );
+
+    mysqli_stmt_execute($updateStmt);
+
+    if (sendOTP($email, $existingUser['first_name'], $otp)) {
+
+        $_SESSION['verify_email'] = $email;
+
+        header("Location: ../pages/verify_otp.php");
+
+        exit();
+
+    } else {
+
+        die("OTP Email Failed.");
+
+    }
 
 }
 
