@@ -1,15 +1,22 @@
 <?php
+
 session_start();
 
-$email = "";
+$title = "Email Verification";
+$subtitle = "Enter the OTP sent to your email.";
+
+if (
+    isset($_SESSION['otp_type']) &&
+    $_SESSION['otp_type'] == "forgot"
+) {
+
+    $title = "Forgot Password";
+    $subtitle = "Enter the OTP to reset your password.";
+
+}
 
 $hasError = isset($_SESSION['otp_error']);
 
-if (isset($_SESSION['verify_email'])) {
-
-    $email = $_SESSION['verify_email'];
-
-}
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +52,7 @@ if (isset($_SESSION['verify_email'])) {
 
             <!-- Heading -->
 
-            <h1>Verify Your Email</h1>
+            <h1>Verify Yor Email</h1>u
 
             <!-- Subtitle -->
 
@@ -163,3 +170,19 @@ if (!empty($email)) {
 </body>
 
 </html>
+<?php
+
+$title = "Email Verification";
+$subtitle = "Enter the OTP sent to your email.";
+
+if (
+    isset($_SESSION['otp_type']) &&
+    $_SESSION['otp_type'] == "forgot"
+) {
+
+    $title = "Forgot Password";
+    $subtitle = "Enter the OTP to reset your password.";
+
+}
+
+?>

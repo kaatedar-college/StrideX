@@ -2,12 +2,13 @@
 
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
 
-    header("Location: pages/login.php");
-    exit();
-
-}
+$username = isset($_SESSION['first_name'])
+    ? htmlspecialchars($_SESSION['first_name'])
+    : "Guest";
 
 ?>
 
@@ -22,7 +23,15 @@ if (!isset($_SESSION['user_id'])) {
 
 <body>
 
-    <h1>Hello, <?php echo $_SESSION['first_name']; ?> 👋</h1>
+<?php
+
+$username = isset($_SESSION['first_name'])
+    ? htmlspecialchars($_SESSION['first_name'])
+    : "Guest";
+
+?>
+
+<h1>Hello, <?php echo $username; ?> 👋</h1>
 
     <button onclick="window.location.href='php/logout.php'">
         Logout

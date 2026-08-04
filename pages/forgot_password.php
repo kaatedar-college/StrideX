@@ -34,11 +34,12 @@ Enter your email
 
 </p>
 
-<form>
+<form action="../php/forgot_process.php" method="POST">
 
 <input
 type="email"
-placeholder="Email"
+name="email"
+placeholder="Enter your email"
 required>
 
 <button>

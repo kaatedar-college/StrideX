@@ -118,39 +118,41 @@ required>
 </div>
 <div class="pass">
 
-<input
-type="password"
-id="password"
-name="password"
-placeholder="Password"
-required>
+    <input
+    type="password"
+    id="password"
+    name="password"
+    placeholder="Password"
+    required>
 
-<button
-type="button"
-onclick="togglePass()">
+    <button
+    type="button"
+    class="toggle-password"
+    onclick="togglePass('password', this)">
 
-👁
+        👁
 
-</button>
+    </button>
 
 </div>
 
 <div class="pass">
 
-<input
-type="password"
-id="confirm"
-name="confirm_password"
-placeholder="Confirm Password"
-required>
+    <input
+    type="password"
+    id="confirm_password"
+    name="confirm_password"
+    placeholder="Confirm Password"
+    required>
 
-<button
-type="button"
-onclick="toggleConfirm()">
+    <button
+    type="button"
+    class="toggle-password"
+    onclick="togglePass('confirm_password', this)">
 
-👁
+        👁
 
-</button>
+    </button>
 
 </div>
 
@@ -181,7 +183,7 @@ Login
 <script src="../assets/data/countries.js"></script>
 <script src="../assets/js/register.js"></script>
 <script src="../assets/js/country-select.js"></script>
-
+<script src="../assets/js/login.js"></script>
 </body>
 
 </html>

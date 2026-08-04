@@ -50,9 +50,16 @@ if (!$user) {
 // Check Already Verified
 // ===============================
 
-if ($user['is_verified'] == 1) {
+if (
+    !isset($_SESSION['otp_type']) ||
+    $_SESSION['otp_type'] != "forgot"
+) {
 
-    die("Email already verified.");
+    if ($user['is_verified'] == 1) {
+
+        die("Email already verified.");
+
+    }
 
 }
 
@@ -87,6 +94,18 @@ exit();
 }
 
 // ===============================
+// Forgot Password Flow
+// ===============================
+
+if (isset($_SESSION['otp_type']) && $_SESSION['otp_type'] == "forgot") {
+
+    header("Location: ../pages/reset_password.php");
+
+    exit();
+
+}
+
+// ===============================
 // Update User Verification Status
 // ===============================
 
@@ -108,7 +127,7 @@ mysqli_stmt_execute($stmt);
 // ===============================
 
 unset($_SESSION['verify_email']);
-
+unset($_SESSION['otp_type']);
 // ===============================
 // Redirect To Login Page
 // ===============================

@@ -7,7 +7,7 @@ session_start();
 // ===============================
 
 require_once "db.php";
-
+require_once "send_otp_mail.php";
 
 // ===============================
 // Check Request Method
@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 // ===============================
 
 $email = trim($_POST['email']);
+$_SESSION['old_email'] = $email;
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
     die("Invalid Email.");
@@ -115,14 +116,51 @@ exit();
 
 if ($user['is_verified'] == 0) {
 
-    $_SESSION['login_error'] = "Please verify your email first.";
+    // New OTP
+    $newOTP = rand(100000, 999999);
 
-    header("Location: ../pages/login.php");
+    // OTP Expiry (5 Minutes)
+    $expiry = date("Y-m-d H:i:s", strtotime("+5 minutes"));
 
-    exit();
+    // Update OTP in Database
+    $updateSql = "UPDATE users
+                  SET otp = ?, otp_expire = ?
+                  WHERE email = ?";
+
+    $updateStmt = mysqli_prepare($conn, $updateSql);
+
+    mysqli_stmt_bind_param(
+        $updateStmt,
+        "sss",
+        $newOTP,
+        $expiry,
+        $user['email']
+    );
+
+    mysqli_stmt_execute($updateStmt);
+
+    mysqli_stmt_close($updateStmt);
+
+    // Send OTP Email
+    if (sendOTP($user['email'], $user['first_name'], $newOTP)) {
+
+        $_SESSION['verify_email'] = $user['email'];
+
+        header("Location: ../pages/verify_otp.php");
+
+        exit();
+
+    } else {
+
+        $_SESSION['login_error'] = "Failed to send OTP. Please try again.";
+
+        header("Location: ../pages/login.php");
+
+        exit();
+
+    }
 
 }
-
 // ===============================
 // Secure Session
 // ===============================
@@ -141,21 +179,12 @@ $_SESSION['email'] = $user['email'];
 
 $_SESSION['login_time'] = time();
 
-// ===============================
-// Check Email Verification
-// ===============================
-
-if ($user['is_verified'] == 0) {
-
-    die("Please verify your email first.");
-
-}
 
 
 // ===============================
 // Redirect After Login
 // ===============================
-
+unset($_SESSION['old_email']);
 header("Location: ../index.php");
 exit();
 
