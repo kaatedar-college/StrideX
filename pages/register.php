@@ -156,12 +156,11 @@ required>
 
 </div>
 
-<button>
+<button type="submit">
 
-CREATE ACCOUNT
+    CREATE ACCOUNT
 
 </button>
-
 <p class="login">
 
 Already have account?
