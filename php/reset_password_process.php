@@ -5,21 +5,26 @@ session_start();
 require_once "db.php";
 
 // ===============================
-// Check Session
+// Check successful OTP verification session
 // ===============================
 
-if (
-    !isset($_SESSION['verify_email']) ||
-    !isset($_SESSION['otp_type']) ||
-    $_SESSION['otp_type'] != "forgot"
-) {
+$resetVerification = $_SESSION['password_reset_verification'] ?? null;
+
+if (!is_array($resetVerification) ||
+    empty($resetVerification['user_id']) ||
+    empty($resetVerification['email']) ||
+    empty($resetVerification['expires_at']) ||
+    time() > $resetVerification['expires_at']) {
+
+    unset($_SESSION['password_reset_verification']);
 
     header("Location: ../pages/login.php");
     exit();
 
 }
 
-$email = $_SESSION['verify_email'];
+$userId = (int) $resetVerification['user_id'];
+$email = $resetVerification['email'];
 
 // ===============================
 // Get Form Data
@@ -63,14 +68,15 @@ SET
 password = ?,
 otp = NULL,
 otp_expire = NULL
-WHERE email = ?";
+WHERE id = ? AND email = ?";
 
 $stmt = mysqli_prepare($conn, $sql);
 
 mysqli_stmt_bind_param(
     $stmt,
-    "ss",
+    "sis",
     $hashedPassword,
+    $userId,
     $email
 );
 
@@ -82,8 +88,7 @@ mysqli_stmt_close($stmt);
 // Clear Session
 // ===============================
 
-unset($_SESSION['verify_email']);
-unset($_SESSION['otp_type']);
+unset($_SESSION['password_reset_verification']);
 
 // ===============================
 // Redirect

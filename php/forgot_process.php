@@ -16,6 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
 }
 
+// A new reset request invalidates any previously verified reset session.
+unset($_SESSION['password_reset_verification']);
+
 // ===============================
 // Get Email
 // ===============================

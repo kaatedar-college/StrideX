@@ -99,6 +99,18 @@ exit();
 
 if (isset($_SESSION['otp_type']) && $_SESSION['otp_type'] == "forgot") {
 
+    // Grant a short-lived reset authorization only after a valid OTP.
+    session_regenerate_id(true);
+
+    $_SESSION['password_reset_verification'] = [
+        'user_id' => (int) $user['id'],
+        'email' => $user['email'],
+        'expires_at' => time() + (10 * 60)
+    ];
+
+    unset($_SESSION['verify_email']);
+    unset($_SESSION['otp_type']);
+
     header("Location: ../pages/reset_password.php");
 
     exit();

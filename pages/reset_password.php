@@ -2,10 +2,16 @@
 
 session_start();
 
-// Direct Access Block
-if (!isset($_SESSION['verify_email']) ||
-    !isset($_SESSION['otp_type']) ||
-    $_SESSION['otp_type'] != "forgot") {
+// Only a successfully verified, short-lived password-reset session may access this page.
+$resetVerification = $_SESSION['password_reset_verification'] ?? null;
+
+if (!is_array($resetVerification) ||
+    empty($resetVerification['user_id']) ||
+    empty($resetVerification['email']) ||
+    empty($resetVerification['expires_at']) ||
+    time() > $resetVerification['expires_at']) {
+
+    unset($_SESSION['password_reset_verification']);
 
     header("Location: login.php");
     exit();
