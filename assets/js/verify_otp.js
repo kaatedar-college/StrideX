@@ -143,6 +143,18 @@ resendLink.addEventListener("click", function (e) {
     resendLink.style.display = "none";
     resendText.style.display = "block";
 
+        // Show Lottie Preloader
+    const preloader =
+        document.getElementById("preloader");
+
+    if (preloader) {
+
+        preloader.classList.remove(
+            "preloader-hidden"
+        );
+
+    }
+
     fetch("../php/resend_otp.php")
 
     .then(response => response.text())
@@ -150,6 +162,16 @@ resendLink.addEventListener("click", function (e) {
     .then(data => {
 
         data = data.trim();
+        const preloader =
+        document.getElementById("preloader");
+
+            if (preloader) {
+
+    preloader.classList.add(
+        "preloader-hidden"
+    );
+
+  }
 
         if (data === "success") {
 
@@ -190,6 +212,19 @@ resendLink.addEventListener("click", function (e) {
     .catch(error => {
 
         console.error(error);
+
+            const preloader =
+        document.getElementById("preloader");
+
+    if (preloader) {
+
+        preloader.classList.add(
+            "preloader-hidden"
+        );
+
+    }
+
+
 
         alert("Something went wrong.");
 

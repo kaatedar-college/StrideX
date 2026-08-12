@@ -18,9 +18,24 @@ href="../assets/css/register.css">
 
 <link rel="stylesheet" href="../assets/css/country-select.css">
 
+<script
+    src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.7.1/dist/dotlottie-wc.js"
+    type="module">
+</script>
+
+<script src="../assets/js/dotlottie.js" defer></script>
+
 </head>
 
 <body>
+
+<!-- STRIDEX PRELOADER START -->
+<div id="preloader" class="stridex-preloader">
+
+    <?php include '../components/preloader.php'; ?>
+
+</div>
+<!-- STRIDEX PRELOADER END -->
 
 <div class="container">
 

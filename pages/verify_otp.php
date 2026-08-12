@@ -36,9 +36,22 @@ $hasError = isset($_SESSION['otp_error']);
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
+    <script
+    src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.7.1/dist/dotlottie-wc.js"
+    type="module">
+ </script>
+<script src="../assets/js/dotlottie.js" defer></script>
+
 </head>
 
 <body class="<?php echo isset($_SESSION['otp_error']) ? 'no-animation' : ''; ?>">
+
+<div id="preloader" class="stridex-preloader">
+
+    <?php include '../components/preloader.php'; ?>
+
+</div>
+
 
     <div class="verify-container">
 
@@ -52,19 +65,31 @@ $hasError = isset($_SESSION['otp_error']);
 
             <!-- Heading -->
 
-            <h1>Verify Yor Email</h1>u
+          <h1>Verify Your Email</h1>
 
-            <!-- Subtitle -->
+<!-- Subtitle -->
 
-            <p class="subtitle">
+<p class="subtitle">
 
-                We've sent a verification code to
+    We've sent a verification code to
 
-            </p>
+</p>
 
-            <!-- Email -->
+<!-- Email -->
 
-         <p class="email">
+<p class="email">
+
+    <?php
+
+        echo htmlspecialchars(
+            $_SESSION['verify_email'] ?? '',
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+    ?>
+
+</p>
 
 <?php
 
@@ -143,7 +168,7 @@ if (!empty($email)) {
             <p class="resend-text">
 
     Resend OTP in
-    <span id="countdown">60</span>s
+    <span id="countdown">60</span>
 
 </p>
 

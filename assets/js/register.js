@@ -48,23 +48,27 @@ document
 .value;
 
 let confirm=
-document
-.getElementById(
-"confirm"
-)
-.value;
+document.getElementById("confirm_password").value;
 
-if(
-password
-!== 
-confirm
-){
+ if(password !== confirm){
 
-e.preventDefault();
+     e.preventDefault();
 
-alert(
-"Password does not match"
-);
+     alert("Password does not match");
+ } else {
+
+    const preloader =
+        document.getElementById(
+            "preloader"
+        );
+
+    if (preloader) {
+
+        preloader.classList.remove(
+            "preloader-hidden"
+        );
+
+    }
 
 }
 
